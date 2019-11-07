@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <h1>Copy Sample3</h1>
+    <p>{{ userAgent }}</p>
     <div>
       <textarea></textarea>
     </div>
@@ -27,42 +28,51 @@ import HelloWorld from './components/HelloWorld.vue';
 })
 export default class App extends Vue {
 
-  private text1 = 'text1'
-  private text2 = 'text2'
-  private text3 = 'text3'
-  private isReadOnly = true
+  private text1 = 'text1';
+  private text2 = 'text2';
+  private text3 = 'text3';
+  private isReadOnly = true;
+  private userAgent = '';
 
-  copySample1() {
-    navigator.clipboard.writeText(this.text1).then((res) => {
-      alert('then')
-    }).catch((e) => {
-      alert('catch')
-      var yourCode: any = document.getElementById('copy-area');
-      var range = document.createRange();
+  private mounted() {
+    this.userAgent = navigator.userAgent;
+  }
+
+  private copySample1() {
+    if (this.isIOS) {
+      const yourCode: any = document.getElementById('copy-area1');
+      const range = document.createRange();
       range.selectNode(yourCode);
       window.getSelection()!!.addRange(range);
       document.execCommand('copy');
-    })
+    } else {
+      navigator.clipboard.writeText(this.text1);
+    }
   }
 
-  copySample2() {
-    this.isReadOnly = false
-
-    const copyArea = document.getElementById('copy-area')! as HTMLInputElement
-    copyArea.select()
-    document.execCommand('copy')
-
-    this.isReadOnly = true
+  private copySample2() {
+    if (this.isIOS) {
+      const yourCode: any = document.getElementById('copy-area2');
+      const range = document.createRange();
+      range.selectNode(yourCode);
+      window.getSelection()!!.addRange(range);
+      document.execCommand('copy');
+    } else {
+      navigator.clipboard.writeText(this.text2);
+    }
   }
 
-  copySample3() {
-    var yourCode: any = document.getElementById('copy-area3');
-    var range = document.createRange();
+  private copySample3() {
+    const yourCode: any = document.getElementById('copy-area3');
+    const range = document.createRange();
     range.selectNode(yourCode);
     window.getSelection()!!.addRange(range);
     document.execCommand('copy');
   }
 
+  get isIOS() {
+    return /iP(hone|(o|a)d)/.test(this.userAgent);
+  }
 
 }
 </script>
