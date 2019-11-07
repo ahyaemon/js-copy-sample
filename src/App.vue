@@ -1,7 +1,15 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h1>Copy Sample</h1>
+    <div>
+      <textarea></textarea>
+    </div>
+    <div>
+      <textarea readonly @click="copySample1">{{ text1 }}</textarea>
+    </div>
+    <div>
+      <textarea id="copy-area" :readonly="isReadOnly" @click="copySample2">{{ text2 }}</textarea>
+    </div>
   </div>
 </template>
 
@@ -14,7 +22,28 @@ import HelloWorld from './components/HelloWorld.vue';
     HelloWorld,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+
+  private text1 = 'text1'
+  private text2 = 'text2'
+  private isReadOnly = true
+
+  copySample1() {
+    navigator.clipboard.writeText(this.text1)
+  }
+
+  copySample2() {
+    this.isReadOnly = false
+
+    const copyArea = document.getElementById('copy-area')! as HTMLInputElement
+    copyArea.select()
+    document.execCommand('copy')
+
+    this.isReadOnly = true
+  }
+
+
+}
 </script>
 
 <style>
