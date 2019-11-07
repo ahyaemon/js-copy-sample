@@ -2,6 +2,7 @@
   <div id="app">
     <h1>Copy Sample3</h1>
     <p>{{ userAgent }}</p>
+    <p>isIOS: {{ isIOS }}</p>
     <div>
       <textarea></textarea>
     </div>
