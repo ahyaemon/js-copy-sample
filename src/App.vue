@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Copy Sample</h1>
+    <h1>Copy Sample3</h1>
     <div>
       <textarea></textarea>
     </div>
@@ -9,6 +9,9 @@
     </div>
     <div>
       <textarea id="copy-area" :readonly="isReadOnly" @click="copySample2">{{ text2 }}</textarea>
+    </div>
+    <div>
+      <textarea id="copy-area3" :readonly="isReadOnly" @click="copySample3">{{ text3 }}</textarea>
     </div>
   </div>
 </template>
@@ -26,10 +29,14 @@ export default class App extends Vue {
 
   private text1 = 'text1'
   private text2 = 'text2'
+  private text3 = 'text3'
   private isReadOnly = true
 
   copySample1() {
-    navigator.clipboard.writeText(this.text1).catch((e) => {
+    navigator.clipboard.writeText(this.text1).then((res) => {
+      alert('then')
+    }).catch((e) => {
+      alert('catch')
       var yourCode: any = document.getElementById('copy-area');
       var range = document.createRange();
       range.selectNode(yourCode);
@@ -46,6 +53,14 @@ export default class App extends Vue {
     document.execCommand('copy')
 
     this.isReadOnly = true
+  }
+
+  copySample3() {
+    var yourCode: any = document.getElementById('copy-area3');
+    var range = document.createRange();
+    range.selectNode(yourCode);
+    window.getSelection()!!.addRange(range);
+    document.execCommand('copy');
   }
 
 
