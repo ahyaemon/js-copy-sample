@@ -7,10 +7,10 @@
       <textarea></textarea>
     </div>
     <div>
-      <textarea readonly @click="copySample1">{{ text1 }}</textarea>
+      <textarea id="copy-area1" readonly @click="copySample1">{{ text1 }}</textarea>
     </div>
     <div>
-      <textarea id="copy-area" :readonly="isReadOnly" @click="copySample2">{{ text2 }}</textarea>
+      <textarea id="copy-area2" :readonly="isReadOnly" @click="copySample2">{{ text2 }}</textarea>
     </div>
     <div>
       <textarea id="copy-area3" :readonly="isReadOnly" @click="copySample3">{{ text3 }}</textarea>
