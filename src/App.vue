@@ -29,7 +29,13 @@ export default class App extends Vue {
   private isReadOnly = true
 
   copySample1() {
-    navigator.clipboard.writeText(this.text1)
+    navigator.clipboard.writeText(this.text1).catch((e) => {
+      var yourCode: any = document.getElementById('copy-area');
+      var range = document.createRange();
+      range.selectNode(yourCode);
+      window.getSelection()!!.addRange(range);
+      document.execCommand('copy');
+    })
   }
 
   copySample2() {
